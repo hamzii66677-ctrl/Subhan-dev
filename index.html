@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>DEV SUBHAN | Premium Graphic Designer</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: #020617;
+      /* Background Image updated to match the studio wall/poster collage style */
+      background-image: url('https://images.unsplash.com/photo-1558655146-d09347e92766?q=80&w=2564&auto=format&fit=crop');
+      background-size: cover;
+      background-position: center;
+      background-attachment: fixed;
+      color: #e2e8f0;
+      overflow-x: hidden;
+      position: relative;
+    }
+
+    /* Darkening Overlay to ensure text readability over the busy background */
+    body::before {
+      content: "";
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(180deg, rgba(2, 6, 23, 0.7) 0%, rgba(2, 6, 23, 0.95) 100%);
+      z-index: -1;
+    }
+
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px 40px;
+      position: sticky;
+      top: 0;
+      background: rgba(2,6,23,0.6);
+      backdrop-filter: blur(10px);
+      z-index: 1000;
+    }
+
+    header h1 {
+      font-size: 24px;
+      background: linear-gradient(90deg,#38bdf8,#6366f1);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      font-weight: 700;
+    }
+
+    nav a {
+      margin-left: 25px;
+      font-size: 15px;
+      color: #cbd5f5;
+      text-decoration: none;
+      font-weight: 500;
+      transition: 0.3s;
+    }
+
+    nav a:hover { color: #38bdf8; }
+
+    /* Hero Section */
+    .hero {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      height: 100vh;
+      padding: 0 20px;
+      background: transparent; 
+      position: relative;
+    }
+
+    .hero h2 {
+      font-size: 3rem;
+      font-weight: 700;
+      background: linear-gradient(90deg,#38bdf8,#6366f1);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-bottom: 20px;
+    }
+
+    .hero p {
+      font-size: 1.2rem;
+      max-width: 600px;
+      color: #94a3b8;
+      margin-bottom: 40px;
+    }
+
+    .btn {
+      display: inline-block;
+      padding: 16px 36px;
+      border-radius: 12px;
+      background: linear-gradient(90deg,#38bdf8,#6366f1);
+      color: white;
+      font-weight: 600;
+      text-decoration: none;
+      font-size: 1rem;
+      transition: 0.3s;
+    }
+
+    .btn:hover { transform: scale(1.05); }
+
+    .section { padding: 80px 20px; }
+    .section h3 { text-align: center; margin-bottom: 50px; font-size: 2rem; font-weight: 700; }
+
+    /* Services */
+    .services {
+      display: grid;
+      gap: 30px;
+      grid-template-columns: 1fr;
+      text-align: center;
+    }
+
+    .service-card {
+      padding: 40px 20px;
+      border-radius: 20px;
+      background: rgba(2,6,23,0.6);
+      backdrop-filter: blur(10px);
+      transition: 0.3s;
+    }
+
+    .service-card:hover {
+      transform: translateY(-10px);
+      background: linear-gradient(135deg,#38bdf8,#6366f1);
+      color: white;
+    }
+
+    .service-card i {
+      font-size: 40px;
+      margin-bottom: 20px;
+      color: #38bdf8;
+    }
+
+    /* Portfolio Grid */
+    .grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 20px;
+    }
+
+    .card {
+      position: relative;
+      overflow: hidden;
+      border-radius: 20px;
+      cursor: pointer;
+    }
+
+    .card img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: 0.5s;
+    }
+
+    .card:hover img {
+      transform: scale(1.1);
+      filter: brightness(0.5);
+    }
+
+    .card span {
+      position: absolute;
+      bottom: 20px;
+      left: 20px;
+      font-weight: 600;
+      font-size: 1.2rem;
+      opacity: 0;
+      transition: 0.5s;
+    }
+
+    .card:hover span { opacity: 1; color: #38bdf8; }
+
+    /* Contact Form */
+    form {
+      max-width: 500px;
+      margin: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+
+    input, textarea, button {
+      padding: 16px;
+      border-radius: 12px;
+      border: none;
+      font-size: 1rem;
+    }
+
+    input, textarea {
+      background: #020617;
+      color: white;
+    }
+
+    button {
+      background: linear-gradient(90deg,#38bdf8,#6366f1);
+      color: white;
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+    /* Testimonials */
+    .testimonials {
+      display: flex;
+      flex-direction: column;
+      gap: 30px;
+      max-width: 900px;
+      margin: auto;
+    }
+
+    .testimonial-card {
+      background: rgba(2,6,23,0.6);
+      backdrop-filter: blur(10px);
+      padding: 30px;
+      border-radius: 20px;
+      transition: 0.3s;
+    }
+
+    .testimonial-card:hover {
+      transform: translateY(-10px);
+    }
+
+    footer {
+      text-align: center;
+      padding: 60px 20px;
+      color: #64748b;
+      display: flex;
+      flex-direction: column;
+      gap: 30px;
+      align-items: center;
+    }
+
+    .social-icons {
+      display: flex;
+      gap: 25px;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .social-icons a {
+      width: 60px;
+      height: 60px;
+      color: #fff;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 26px;
+      text-decoration: none;
+      transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+
+    .social-icons a.whatsapp-btn { background-color: #25d366; }
+    .social-icons a.facebook-btn { background-color: #1877f2; }
+
+    .cursor-glow {
+      position: fixed;
+      width: 200px;
+      height: 200px;
+      border-radius: 50%;
+      pointer-events: none;
+      background: radial-gradient(circle, rgba(56,189,248,0.25) 0%, transparent 70%);
+      transform: translate(-50%, -50%);
+      z-index: 9999;
+    }
+
+    @media(min-width:768px){
+      .services { grid-template-columns: repeat(2,1fr); }
+      .grid { grid-template-columns: repeat(2,1fr); }
+    }
+
+    @media(min-width:1024px){
+      header { padding: 20px 80px; }
+      .services { grid-template-columns: repeat(3,1fr); }
+      .grid { grid-template-columns: repeat(3,1fr); }
+    }
+
+  </style>
+</head>
+<body>
+<div class="cursor-glow"></div>
+
+<header>
+  <h1>DEV SUBHAN</h1>
+  <nav>
+    <a href="#">Home</a>
+    <a href="#services">Services</a>
+    <a href="#portfolio">Work</a>
+    <a href="#contact">Contact</a>
+  </nav>
+</header>
+
+<section class="hero">
+  <h2 class="animate">Premium Graphic Designer</h2>
+  <p class="animate">I create high-converting visuals and branding solutions for businesses worldwide.</p>
+  <a href="#services" class="btn animate">Discover Services</a>
+</section>
+
+<section id="services" class="section">
+  <h3>My Services</h3>
+  <div class="services">
+    <div class="service-card">
+      <i class="fas fa-palette"></i>
+      <h4>Branding & Identity</h4>
+      <p>Build a strong visual identity that stands out and communicates your brand values.</p>
+    </div>
+    <div class="service-card">
+      <i class="fab fa-facebook-square"></i>
+      <h4>Social Media Designs</h4>
+      <p>Create eye-catching visuals for social media campaigns that drive engagement.</p>
+    </div>
+    <div class="service-card">
+      <i class="fas fa-desktop"></i>
+      <h4>UI/UX Design</h4>
+      <p>Design interfaces that are not only beautiful but also user-friendly and intuitive.</p>
+    </div>
+  </div>
+</section>
+
+<section id="portfolio" class="section">
+  <h3>Portfolio</h3>
+  <div class="grid">
+    <div class="card"><img src="https://picsum.photos/400/300?1"><span>Branding</span></div>
+    <div class="card"><img src="https://picsum.photos/400/300?2"><span>Social Media</span></div>
+    <div class="card"><img src="https://picsum.photos/400/300?3"><span>UI Design</span></div>
+    <div class="card"><img src="https://picsum.photos/400/300?4"><span>Ads</span></div>
+    <div class="card"><img src="https://picsum.photos/400/300?4"><span>Ads</span></div>
+    <div class="card"><img src=""><span>Ads</span></div>
+
+  </div>
+</section>
+
+<section id="testimonials" class="section">
+  <h3>What Clients Say</h3>
+  <div class="testimonials">
+    <div class="testimonial-card">
+      <p>"DEV SUBHAN transformed our brand identity completely. Stunning work!"</p>
+      <strong>- Client A</strong>
+    </div>
+    <div class="testimonial-card">
+      <p>"High-quality designs delivered on time. Highly recommend for any business."</p>
+      <strong>- Client B</strong>
+    </div>
+  </div>
+</section>
+
+<section id="contact" class="section">
+  <h3>Contact Me</h3>
+  <form action="#" method="POST">
+    <input type="text" name="name" placeholder="Your Name" required> 
+    <input type="email" name="email" placeholder="Your Email" required>
+    <textarea name="message" rows="5" placeholder="Your Message" required></textarea>
+    <button type="submit" class="btn">Send Message</button>
+  </form>
+</section>
+
+<footer>
+  <div class="social-icons">
+    <a href="https://web.facebook.com/profile.php?id=61583978070802" class="facebook-btn" target="_blank" aria-label="Facebook">
+      <i class="fab fa-facebook-f"></i>
+    </a>
+    <a href="https://wa.me/923006974068" class="whatsapp-btn" target="_blank" aria-label="WhatsApp">
+      <i class="fab fa-whatsapp"></i>
+    </a>
+  </div>
+  <p>© 2026 DEV SUBHAN — Premium Portfolio</p>
+</footer>
+
+<script>
+  gsap.from('.animate', { opacity: 0, y: 60, duration: 1.2, ease: "power3.out", stagger: 0.25 });
+
+  const glow = document.querySelector('.cursor-glow');
+  document.addEventListener('mousemove', (e) => {
+    glow.style.left = e.clientX + 'px';
+    glow.style.top = e.clientY + 'px';
+  });
+</script>
+
+</body>
+</html>
